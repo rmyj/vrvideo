@@ -5,7 +5,8 @@
         <style>
         body {
         font-family: -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
+        background-color: black;
+        color: white;
         margin: 0 auto;
         padding: 30px 20px 50px;
         max-width: 800px;
@@ -58,8 +59,8 @@
             font-size: 16px;
             font-family: inherit;
             margin:0;
-            background-color: white;
-            color: #3273dc;
+            background-color: #4c4c4c;
+            color: white;
             border: 1px solid rgb(241, 241, 241);
             width: 100%;
             cursor: pointer;
@@ -94,11 +95,12 @@
         <h3 class="links">
         <a href="./assets/paper.pdf" target="_blank">[Conference Paper]</a>  |
         <a href="./assets/poster.pdf" target="_blank">[Poster Abstract]</a><!-- | -->
-        <!--<a href="">[Video]</a>  |-->
-        <!--<a href="https://github.com/AnthonyDickson/video2mesh" target="_blank">[Code]</a>-->
+        <!--<a href="">[Video]</a>  |-->|
+        <a href="https://github.com/AnthonyDickson/video2mesh" target="_blank">[Code]</a>
         </h3>
         <h3>Abstract</h3>
         <p>Recent advances in NeRF-based methods have enabled high-fidelity novel view synthesis for video with dynamic elements. However, these methods often require expensive hardware, take days to process a second-long video and do not scale well to longer videos. We create an end-to-end pipeline for creating dynamic 3D video from a monocular video that can be run on consumer hardware in minutes per second of footage, not days. Our pipeline handles the estimation of the camera parameters, depth maps, 3D reconstruction of dynamic foreground and static background elements, and the rendering of the 3D video on a computer or VR headset. We use a state-of-the-art visual transformer model to estimate depth maps which we use to scale COLMAP poses and enable RGB-D fusion with estimated depth data. In our preliminary experiments, we rendered the output in a VR headset and visually compared the method against ground-truth datasets and state-of-the-art NeRF-based methods.</p>
+        <hr>
         <h3>WebXR examples</h3>
         <p>The WebXR viewer is best experienced in Google Chrome on desktop or on a compatible VR headset. The examples will work on desktop even if the website states "WEBXR NOT AVAILABLE". The scene may take a while to load on machines with less powerful video cards.</p>
             <div class="thumbnails">
@@ -134,10 +136,10 @@
                     btn.innerText = mode;
                     btn.addEventListener("mouseenter", () => {
                         img.src = "./assets/data/" + i + "/" + btn.innerText + ".png";
-                        btn.style.background = "#F2F2F2";
+                        btn.style.background = "#333333";
                     })
                     btn.addEventListener("mouseleave", () => {
-                        btn.style.background = "#FFFFFF";
+                        btn.style.background = "#4c4c4c";
                     })
                     if(mode == "source"){
                         btn.addEventListener("click", () => {
@@ -147,7 +149,7 @@
                         })
                     } else {
                         btn.addEventListener("click", () => {
-                            const destination = new URL("https://jeshanks.cspages.otago.ac.nz/vrvideo/docs", window.location)
+                            const destination = new URL("https://rmyj.github.io/vrvideo/docs", window.location)
                             destination.searchParams.append("mode", dict[mode]);
                             destination.searchParams.append("scene", i);
                             console.log(destination.toString());
@@ -165,10 +167,10 @@
                     btn.innerText = mode;
                     btn.addEventListener("mouseenter", () => {
                         img.src = "./assets/data/" + i + "/" + btn.innerText + ".png";
-                        btn.style.background = "#F2F2F2";
+                        btn.style.background = "#333333";
                     })
                     btn.addEventListener("mouseleave", () => {
-                        btn.style.background = "#FFFFFF";
+                        btn.style.background = "#4c4c4c";
                     })
                     if(mode == "source"){
                         btn.addEventListener("click", () => {
@@ -178,7 +180,7 @@
                         })
                     } else {
                         btn.addEventListener("click", () => {
-                            const destination = new URL("https://jeshanks.cspages.otago.ac.nz/vrvideo/docs", window.location)
+                            const destination = new URL("https://rmyj.github.io/vrvideo/docs", window.location)
                             destination.searchParams.append("mode", dict[mode]);
                             destination.searchParams.append("scene", i);
                             console.log(destination.toString());
