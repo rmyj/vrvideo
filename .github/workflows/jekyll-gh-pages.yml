@@ -67,12 +67,6 @@ jobs:
       - name: more display
         run: ls -l ./_site/docs
 
-      - name: copy the file
-        run: cp ./docs/index.js ./_site/docs/index.js
-
-      - name: display
-        run: ls -l ./_site/docs
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
