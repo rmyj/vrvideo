@@ -150,7 +150,7 @@
                     } else {
                         btn.addEventListener("click", () => {
                             const destination = new URL("https://rmyj.github.io/vrvideo/docs", window.location)
-                            destination.searchParams.append("mode", dict[mode]);
+                            destination.searchParams.append("mode", "estimated");
                             destination.searchParams.append("scene", i);
                             console.log(destination.toString());
                             window.open(destination.toString());
