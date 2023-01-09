@@ -52,14 +52,17 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Copy index.js
-        run: cp ./docs/index.js ./_site/docs/index.js
+      #- name: Copy index.js
+       # run: cp ./docs/index.js ./_site/docs/index.js
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+
+      - name: Dispaly Jekyll content
+        run: ls -l ./_site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
