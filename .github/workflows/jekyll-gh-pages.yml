@@ -25,12 +25,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup Pages
         uses: actions/configure-pages@v2
+
       - name: Install npm dependencies
         run: npm install -y
+
+      - name: Build with npm
+        run: npm run build --verbose
 
       - name: Cache node modules
         id: cache-nodemodules
@@ -39,21 +45,22 @@ jobs:
           cache-name: cache-node-modules
         with:
           # caching node_modules
-          path: node_modules
+          path: ./node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: Copy index.js
+        run: cp ./docs/index.js ./_site/docs/index.js
 
-      - name: Build with npm
-        run: npm run build --verbose
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
