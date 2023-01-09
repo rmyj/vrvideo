@@ -244,7 +244,7 @@ const getVideoFolder = (): string => {
 }
 
 async function loadMetadata(videoFolder: string) {
-    const response = await fetch(`https://jeshanks.cspages.otago.ac.nz/vrvideo/docs/data/${sceneNum}/metadata.json`)
+    const response = await fetch(`https://rmyj.github.io/vrvideo/docs/data/${sceneNum}/metadata.json`)
     return await response.json()
 }
 
