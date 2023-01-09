@@ -64,6 +64,15 @@ jobs:
       - name: Dispaly Jekyll content
         run: ls -l ./_site
 
+      - name: more display
+        run: ls -l ./_site/index.js
+
+      - name: copy the file
+        run: cp ./docs/index.js ./_site/docs/index.js
+
+      - name: display
+        run: ls -l ./_site/index.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
