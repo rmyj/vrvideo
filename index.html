@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>VRVideo: A flexible pipeline for VR Video Creation</title>
+        <style>
+        body {
+        font-family: -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+        margin: 0 auto;
+        padding: 30px 20px 50px;
+        max-width: 800px;
+        }
+        h1 { 
+        text-align: center;
+        }
+        .authors {
+        text-align: center;
+        }
+
+        .links {
+        text-align: center;
+        color: #3273dc;
+        }
+        a:link {
+        color: #3273dc;
+        }
+
+        .thumbnails {
+            padding: 10px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .thumbnail {
+            position: relative;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.082);
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .thumbnail img {
+            display: inline-block;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .button-wrapper {
+            display: flex;
+            background:white;
+
+        }
+
+        .button-wrapper button {
+            padding: 10px 15px;
+            font-size: 16px;
+            font-family: inherit;
+            margin:0;
+            background-color: white;
+            color: #3273dc;
+            border: 1px solid rgb(241, 241, 241);
+            width: 100%;
+            cursor: pointer;
+
+        }
+        .button-wrapper button:nth-child(1) {
+            border-bottom-left-radius: 10px;
+        }
+
+        .button-wrapper button:nth-child(3) {
+            border-bottom-right-radius: 10px;
+        }
+        </style>
+
+    </head>
+
+    <body>
+        <h1>VRVideo: A flexible pipeline for VR Video Creation</h1>
+        <p class=authors>Anthony Dickson<sup>1</sup><br>
+        Jeremy Shanks<sup>1</sup><br>
+        Jonathan Ventura<sup>2</sup><br>
+        Alistair Knott<sup>3</sup><br>
+        Stefanie Zollman<sup>1</sup></p>
+        <p class=authors>
+        <sup>1</sup>University of Otago, Dunedin, New Zealand<br>
+        <sup>2</sup>California Polytechnic State University, San Luis Obispo, CA, USA<br>
+        <sup>3</sup>Victoria University of Wellington, Wellington, New Zealand<br>
+        <hr>
+        <div style="">
+            <img src="./assets/video_3d_demo.gif" style="max-width: 75%; height: auto; display: block;  margin-left: auto; margin-right: auto;">
+        </div>
+        <h3 class="links">
+        <a href="./assets/paper.pdf" target="_blank">[Conference Paper]</a>  |
+        <a href="./assets/poster.pdf" target="_blank">[Poster Abstract]</a><!-- | -->
+        <!--<a href="">[Video]</a>  |-->
+        <!--<a href="https://github.com/AnthonyDickson/video2mesh" target="_blank">[Code]</a>-->
+        </h3>
+        <h3>Abstract</h3>
+        <p>Recent advances in NeRF-based methods have enabled high-fidelity novel view synthesis for video with dynamic elements. However, these methods often require expensive hardware, take days to process a second-long video and do not scale well to longer videos. We create an end-to-end pipeline for creating dynamic 3D video from a monocular video that can be run on consumer hardware in minutes per second of footage, not days. Our pipeline handles the estimation of the camera parameters, depth maps, 3D reconstruction of dynamic foreground and static background elements, and the rendering of the 3D video on a computer or VR headset. We use a state-of-the-art visual transformer model to estimate depth maps which we use to scale COLMAP poses and enable RGB-D fusion with estimated depth data. In our preliminary experiments, we rendered the output in a VR headset and visually compared the method against ground-truth datasets and state-of-the-art NeRF-based methods.</p>
+        <h3>WebXR examples</h3>
+        <p>The WebXR viewer is best experienced in Google Chrome on desktop or on a compatible VR headset. The examples will work on desktop even if the website states "WEBXR NOT AVAILABLE". The scene may take a while to load on machines with less powerful video cards.</p>
+            <div class="thumbnails">
+            </div>
+
+        <script>
+            const thumbnails = document.querySelector(".thumbnails");
+            for(let i = 0; i < 8; i++) {
+                let img = new Image();
+                // default thumbnail to be from estimated-data
+                img.src = "./assets/data/" + i + "/source.png";
+                let buttonWrapper = document.createElement("div")
+                let dict = {'ground-truth':'ground','estimated-data':'estimated'}
+                let videoURL = ["https://youtu.be/fAJEN-T8dAk", // walking
+                                "https://youtu.be/oeMEjCWSsag", // sitting
+                                "https://youtu.be/VG4bugeTP5Y", // swing
+                                "https://youtu.be/DAc8kBhI4u0", // edwardsBay
+                                "https://youtu.be/bXe41jWMitg", // treeclimbing
+                                "https://youtu.be/L3swMGopgKU", // tokyostones
+                                "https://youtu.be/2jCqeGZlSf8", // tokyoteahouse
+                                "https://youtu.be/qe5BJA5a6ZU", // tokyoclimbing
+                                "", // kid running
+                                ]
+                buttonWrapper.className = "button-wrapper"
+                const buttons = ["source","ground-truth","estimated-data"].map(mode => {
+                    const btn = document.createElement("button")
+                    btn.innerText = mode;
+                    btn.addEventListener("mouseenter", () => {
+                        img.src = "./assets/data/" + i + "/" + btn.innerText + ".png";
+                        btn.style.background = "#F2F2F2";
+                    })
+                    btn.addEventListener("mouseleave", () => {
+                        btn.style.background = "#FFFFFF";
+                    })
+                    if(mode == "source"){
+                        btn.addEventListener("click", () => {
+                            const destination = new URL(videoURL[i], window.location)
+                            console.log(destination.toString());
+                            window.open(destination.toString());
+                        })
+                    } else {
+                        btn.addEventListener("click", () => {
+                            const destination = new URL("https://jeshanks.cspages.otago.ac.nz/vrvideo/docs", window.location)
+                            destination.searchParams.append("mode", dict[mode]);
+                            destination.searchParams.append("scene", i);
+                            console.log(destination.toString());
+                            window.open(destination.toString());
+                        })
+                    }
+                    return btn;
+                })
+                const wrapper = document.createElement("div")
+                wrapper.className = "thumbnail"
+                buttonWrapper.append(...buttons);
+                wrapper.append(img, buttonWrapper);
+                thumbnails.append(wrapper)
+            }
+        </script>
+
+    </body>
+</html>
+
